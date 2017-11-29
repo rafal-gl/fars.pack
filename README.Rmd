@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `fars.pack` package loads, aggregates and plots FARS data. Here is an example of the package in action.
+The `fars.pack` package loads, aggregates and plots FARS data. Here is an example of the package in action. 
 
 ```{r}
 require(fars.pack)

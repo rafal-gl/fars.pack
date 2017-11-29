@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/rafal-gl/fars.pack.svg?branch=master)](https://travis-ci.org/rafal-gl/fars.pack)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 The `fars.pack` package loads, aggregates and plots FARS data. Here is an example of the package in action.

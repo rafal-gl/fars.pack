@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-First, let's set the working directory to the directory with FARS data files. 
+This package aims at easy processing of FARS data files. Let's scan through it's funcitons. But first, let's set the working directory to the directory with FARS data files. 
 
 ```{r set working directory}
 require(fars.pack)
@@ -25,7 +25,7 @@ file_path <- system.file("extdata", package = "fars.pack")
 dir(file_path)
 ```
 
-There are 3 data files attached with this package. They consists of data from 2013 to 2015. Let's read this file with `fars_read` function.
+There are 3 data files attached with this package. They consists of data from 2013 to 2015. Let's read one of the files with `fars_read` function.
 
 ```{r read}
 setwd(file_path)
@@ -42,5 +42,13 @@ fars_map_state(1, 2015)
 # state number 10
 fars_map_state(10, 2015)
 ```
+
+We can also calculate observations for every month and year by using `fars_summarize_years` function.
+
+```{r aggr}
+setwd(file_path)
+fars_summarize_years(2013:2015)
+```
+
 
 Voila!

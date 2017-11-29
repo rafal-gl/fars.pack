@@ -14,7 +14,7 @@ a tibble with numbers of observations in months
 }
 \description{
 This function loads FARS data fiels for requested years,
-calculates observations per month in every year and returns 
+calculates observations per month in every year and returns
 the result in a tibble
 }
 \note{

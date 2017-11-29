@@ -1,16 +1,16 @@
 #' Load a FARS data file
-#' 
+#'
 #' This function loads a selected csv data file and returns a tibble
 #' with coresponding variables.
-#' 
+#'
 #' @param filename a character with a name of a file to be loaded
 #' @return a tibble with the same structure as the input file
-#' @note This function will return an error if it does not find a file 
+#' @note This function will return an error if it does not find a file
 #'  from filename parameter. Make sure you provide a proper file path.
 #' @importFrom readr read_csv
 #' @importFrom dplyr tbl_df
-#' @export 
-#' @examples 
+#' @export
+#' @examples
 #' # set your wd to a directory with FARS data files
 #' file_path <- system.file("extdata", package = "fars.pack")
 #' setwd(file_path)
@@ -28,16 +28,16 @@ fars_read <- function(filename) {
 }
 
 #' Create a file name for FARS annual data
-#' 
-#' This function creates a file name of the structure: 
-#' \code{accident_[YEAR].csv.bz2} given the year. 
-#' 
+#'
+#' This function creates a file name of the structure:
+#' \code{accident_[YEAR].csv.bz2} given the year.
+#'
 #' @param year numeric or character with a year number
 #' @return a character with the full file name
-#' @note This function will return \code{"accident_NA.csv.bz2"} and 
+#' @note This function will return \code{"accident_NA.csv.bz2"} and
 #'  throw a warning if the year argument cannot be transoformed to integer
 #' @export
-#' @examples 
+#' @examples
 #' # acceptable input
 #' make_filename(2015)
 #' make_filename("2015")
@@ -47,20 +47,21 @@ make_filename <- function(year) {
   sprintf("accident_%d.csv.bz2", year)
 }
 
-#' Load FARS data for multiple years 
-#' 
-#' This function loads data from FARS data files and 
-#' puts them in a list of tibbles, year by year.  
-#' 
+#' Load FARS data for multiple years
+#'
+#' This function loads data from FARS data files and
+#' puts them in a list of tibbles, year by year.
+#'
 #' @param years a vector or a list with years
-#' @return a list with data tibbles year by year 
+#' @return a list with data tibbles year by year
 #' @note Missing data for any of the requested years will
 #' result in a warning and a \code{NULL} in a coresponding
 #' place in a return list. Set the working directory before running
 #' this function.
 #' @importFrom dplyr mutate select
+#' @importFrom magrittr %>%
 #' @export
-#' @examples 
+#' @examples
 #' file_path <- system.file("extdata", package = "fars.pack")
 #' setwd(file_path)
 #' fars_from_2013_to_2015 <- fars_read_years(2013:2015)
@@ -74,7 +75,7 @@ fars_read_years <- function(years) {
     file <- make_filename(year)
     tryCatch({
       dat <- fars_read(file)
-      dplyr::mutate(dat, year = year) %>% 
+      dplyr::mutate(dat, year = year) %>%
         dplyr::select(MONTH, year)
     }, error = function(e) {
       warning("invalid year: ", year)
@@ -84,19 +85,20 @@ fars_read_years <- function(years) {
 }
 
 #' Count observations from FARS data files
-#' 
+#'
 #' This function loads FARS data fiels for requested years,
-#' calculates observations per month in every year and returns 
-#' the result in a tibble 
-#' 
+#' calculates observations per month in every year and returns
+#' the result in a tibble
+#'
 #' @param years a vector or a list with years
 #' @return a tibble with numbers of observations in months
 #' @note The function will return an error if no valid year
 #' is given in the years parameter
 #' @importFrom dplyr bind_rows group_by summarize
 #' @importFrom tidyr spread
+#' @importFrom magrittr %>%
 #' @export
-#' @examples 
+#' @examples
 #' file_path <- system.file("extdata", package = "fars.pack")
 #' setwd(file_path)
 #' # full years range is covered in data
@@ -104,28 +106,28 @@ fars_read_years <- function(years) {
 
 fars_summarize_years <- function(years) {
   dat_list <- fars_read_years(years)
-  dplyr::bind_rows(dat_list) %>% 
-    dplyr::group_by(year, MONTH) %>% 
+  dplyr::bind_rows(dat_list) %>%
+    dplyr::group_by(year, MONTH) %>%
     dplyr::summarize(n = n()) %>%
     tidyr::spread(year, n)
 }
 
 #' Plot accidents on a map
-#' 
+#'
 #' Plot a state map with accidents as points. States are selected
 #' by specifing their number from data files.
-#' 
+#'
 #' @param state.num numeric, a number of a state to plot
 #' @param year numeric or character with year number
 #' @return NULL, this function only plots
-#' @note The function will return an error if there are no 
-#' accidents registered in requested state and year or the 
+#' @note The function will return an error if there are no
+#' accidents registered in requested state and year or the
 #' state.num is invalid
-#' @importFrom dplyr filter 
+#' @importFrom dplyr filter
 #' @importFrom graphics points
 #' @importFrom maps map
 #' @export
-#' @examples 
+#' @examples
 #' file_path <- system.file("extdata", package = "fars.pack")
 #' setwd(file_path)
 #' fars_map_state(1, 2013)
@@ -135,7 +137,7 @@ fars_map_state <- function(state.num, year) {
   filename <- make_filename(year)
   data <- fars_read(filename)
   state.num <- as.integer(state.num)
-  
+
   if(!(state.num %in% unique(data$STATE)))
     stop("invalid STATE number: ", state.num)
   data.sub <- dplyr::filter(data, STATE == state.num)

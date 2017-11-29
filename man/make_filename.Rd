@@ -13,11 +13,11 @@ make_filename(year)
 a character with the full file name
 }
 \description{
-This function creates a file name of the structure: 
+This function creates a file name of the structure:
 \code{accident_[YEAR].csv.bz2} given the year.
 }
 \note{
-This function will return \code{"accident_NA.csv.bz2"} and 
+This function will return \code{"accident_NA.csv.bz2"} and
  throw a warning if the year argument cannot be transoformed to integer
 }
 \examples{

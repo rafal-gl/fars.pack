@@ -17,7 +17,7 @@ This function loads a selected csv data file and returns a tibble
 with coresponding variables.
 }
 \note{
-This function will return an error if it does not find a file 
+This function will return an error if it does not find a file
  from filename parameter. Make sure you provide a proper file path.
 }
 \examples{

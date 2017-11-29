@@ -19,8 +19,8 @@ Plot a state map with accidents as points. States are selected
 by specifing their number from data files.
 }
 \note{
-The function will return an error if there are no 
-accidents registered in requested state and year or the 
+The function will return an error if there are no
+accidents registered in requested state and year or the
 state.num is invalid
 }
 \examples{

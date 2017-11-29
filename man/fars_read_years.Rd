@@ -13,7 +13,7 @@ fars_read_years(years)
 a list with data tibbles year by year
 }
 \description{
-This function loads data from FARS data files and 
+This function loads data from FARS data files and
 puts them in a list of tibbles, year by year.
 }
 \note{

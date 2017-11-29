@@ -1,0 +1,46 @@
+---
+title: "Plot accidents on a map"
+author: "Rafal Glabski"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plot accidents on a map}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+First, let's set the working directory to the directory with FARS data files. 
+
+```{r set working directory}
+require(fars.pack)
+old_path <- getwd()
+file_path <- system.file("extdata", package = "fars.pack")
+dir(file_path)
+```
+
+There are 3 data files attached with this package. They consists of data from 2013 to 2015. Let's read this file with `fars_read` function.
+
+```{r read}
+setwd(file_path)
+fars2015 <- fars_read(dir()[3])
+head(fars2015)
+```
+
+The output tibble has 52 columns describing accidents. We can plot accidents on a map for a selected state. The function `fars_map_state` does that.
+
+```{r plot}
+setwd(file_path)
+# state number 1
+fars_map_state(1, 2015)
+# state number 10
+fars_map_state(10, 2015)
+```
+
+Voila!

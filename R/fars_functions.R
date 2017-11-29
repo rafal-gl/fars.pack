@@ -1,3 +1,5 @@
+globalVariables(c("STATE", "year", "MONTH", "n"))
+
 #' Load a FARS data file
 #'
 #' This function loads a selected csv data file and returns a tibble

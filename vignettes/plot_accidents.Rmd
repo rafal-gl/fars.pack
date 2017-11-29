@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Plot accidents on a map}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -43,7 +43,7 @@ fars_map_state(1, 2015)
 fars_map_state(10, 2015)
 ```
 
-We can also calculate observations for every month and year by using `fars_summarize_years` function.
+We can also calculate observations for every month and year by using `fars_summarize_years` function. 
 
 ```{r aggr}
 setwd(file_path)
